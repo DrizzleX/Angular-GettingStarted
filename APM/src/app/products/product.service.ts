@@ -26,6 +26,11 @@ export class ProductService {
         );
     }
 
+    getProductDetail(): void {
+        // TODO: get the single product detail instead of retrieving the arry
+        // then iterate over it
+    }
+
     private handleError(err: HttpErrorResponse) {
         let errorMessage = '';
         if (err.error instanceof ErrorEvent) {

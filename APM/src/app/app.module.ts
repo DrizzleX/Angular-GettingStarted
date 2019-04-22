@@ -30,6 +30,11 @@ import { ProductDetailGuard } from './products/product-detail.guard';
       { path: '**', redirectTo: 'welcome', pathMatch: 'full' }, // why 2 **?
     ])
   ],
+  /*
+  the component that is loaded when the application is launched,
+  this is the root application component
+  the bootstrap array is only used in this root application module, AppModule
+  */
   bootstrap: [AppComponent]
 })
 export class AppModule { }

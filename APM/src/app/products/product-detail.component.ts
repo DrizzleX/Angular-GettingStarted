@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from './product.service';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -9,23 +10,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductDetailComponent implements OnInit {
   pageTitle: string = 'Product Detail';
   product: IProduct;
+  errorMessage: string;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+    private productService: ProductService) { }
 
   ngOnInit() {
     // + converts string to number
     let id = +this.route.snapshot.paramMap.get('id');
-    // this.pageTitle += `: ${id}`;
-    this.product = {
-      "productId": id,
-      "productName": "Saw",
-      "productCode": "TBX-0022",
-      "releaseDate": "May 15, 2016",
-      "description": "15-inch steel blade hand saw",
-      "price": 11.55,
-      "starRating": 3.7,
-      "imageUrl": "https://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png"
-    };
+    this.productService.getProducts().subscribe(
+      products => {
+        for (var i = 0; i < products.length; i++) {
+          if (products[i].productId == id) {
+            this.product = products[i];
+            break;
+          }
+        }
+        // if there is no such product in the retrived products
+      },
+      // <any>error is casting, cast the error to any type
+      error => this.errorMessage = <any>error
+    );
   }
 
   onBack(): void {
