@@ -1,8 +1,13 @@
 <!--The whole content below can be removed with the new code.-->
-<div>
-  <h1>
-    Welcome to {{title | uppercase}}!!
-  </h1>
-  <name-list></name-list>
-  <pm-products></pm-products>
+<nav class="navbar nabvar-expand navbar-light bg-light">
+  <a class="navbar-brand">{{ pageTitle }}</a>
+  <ul class="nav nav-pills">
+    <!-- Here we are tying routes to actions -->
+    <li><a class="nav-link" [routerLink]="['/welcome']">Home</a></li>
+    <li><a class="nav-link" [routerLink]="['/products']">Product List</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <!-- router-outlet is the place to display the component's view -->
+    <router-outlet></router-outlet>
 </div>
